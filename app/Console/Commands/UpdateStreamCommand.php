@@ -43,8 +43,7 @@ class UpdateStreamCommand extends Command
         try{
             $streams = StreamModel::all();
             foreach($streams as $stream) {
-                $stream->increment('streamers', rand(0,10));
-                $stream->increment('avg_viewers',rand(0, 10));
+                $stream->increment('viewer_count', rand(0,10));
             }
 
         }catch(Exception $e){

@@ -1,15 +1,11 @@
 <?php
 
-use Flynsarmy\CsvSeeder\CsvSeeder;
+use App\Models\StreamModel;
+use romanzipp\Twitch\Twitch;
+use Illuminate\Database\Seeder;
 
-class TwitchSeeder extends CsvSeeder
+class TwitchSeeder extends Seeder
 {
-    public function __construct()
-	{
-		$this->table = 'streams';
-		$this->filename = base_path().'/database/seeds/twitch_data.csv';
-	}
-
     /**
      * Run the database seeds.
      *
@@ -17,12 +13,25 @@ class TwitchSeeder extends CsvSeeder
      */
     public function run()
     {
-        // Recommended when importing larger CSVs
-		DB::disableQueryLog();
-
-		// Uncomment the below to wipe the table clean before populating
-		DB::table($this->table)->truncate();
-
-		parent::run();
+        $twitch = new Twitch;
+        $per_page = 100; $total_page = 10;
+        
+        $nextCursor = null;
+        for($i = 0; $i < $total_page; $i++) {
+            $result = $twitch->getStreams(['first' => $per_page], $nextCursor);
+            foreach($result->data() as $item) {
+                $stream = new StreamModel();
+                $stream->ref_id = $item->id;
+                $stream->type = $item->type;
+                $stream->user_id = $item->user_id;
+                $stream->game_id = $item->game_id ?: 0;
+                $stream->game_name = $item->game_name ?: 'NA';
+                $stream->viewer_count = $item->viewer_count;
+                $stream->save();
+            }
+            if (isset($result)) {
+                $nextCursor = $result->next();
+            }
+        }
     }
 }

@@ -55,8 +55,8 @@
                         </tr>
                         @foreach($odd_streams as $key => $value)
                         <tr>
-                            <td>{{ $value->game }}</td>
-                            <td>{{ $value->streamers }}</td>
+                            <td>{{ $value->game_name }}</td>
+                            <td>{{ $value->viewer_count }}</td>
                         </tr>
                         @endforeach
                     </table>
@@ -74,8 +74,8 @@
                         </tr>
                         @foreach($even_streams as $key => $value)
                         <tr>
-                            <td>{{ $value->game }}</td>
-                            <td>{{ $value->streamers }}</td>
+                            <td>{{ $value->game_name }}</td>
+                            <td>{{ $value->viewer_count }}</td>
                         </tr>
                         @endforeach
                     </table>
@@ -93,8 +93,8 @@
                         </tr>
                         @foreach($top_100_streams as $key => $value)
                         <tr>
-                            <td>{{ $value->game }}</td>
-                            <td>{{ $value->streamers }}</td>
+                            <td>{{ $value->game_name }}</td>
+                            <td>{{ $value->viewer_count }}</td>
                         </tr>
                         @endforeach
                     </table>
@@ -132,9 +132,8 @@
                         </tr>
                         @foreach($stream_same_viewer as $key => $value)
                         <tr>
-                            <td>{{ $value->game }}</td>
-                            <td>{{ $value->streamers }}</td>
-                            <td>{{ $value->avg_viewers }}</td>
+                            <td>{{ $value->game_name }}</td>
+                            <td>{{ $value->viewer_count }}</td>
                         </tr>
                         @endforeach
                     </table>

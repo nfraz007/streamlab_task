@@ -15,9 +15,12 @@ class CreateStreamsTable extends Migration
     {
         Schema::create('streams', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('game');
-            $table->integer('streamers');
-            $table->integer('avg_viewers');
+            $table->bigInteger('ref_id');
+            $table->string('type');
+            $table->bigInteger('user_id');
+            $table->integer('game_id')->nullable()->default(0);
+            $table->string('game_name')->nullable()->default('NA');
+            $table->integer('viewer_count');
         });
     }
 
